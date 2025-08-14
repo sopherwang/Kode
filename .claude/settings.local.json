@@ -5,7 +5,11 @@
       "Bash(npm run build:*)",
       "Bash(npx tsx:*)",
       "Bash(npx tsc:*)",
-      "Bash(npm install:*)"
+      "Bash(npm install:*)",
+      "Bash(source:*)",
+      "Bash(./cli.js --help)",
+      "Bash(node:*)",
+      "Bash(bun:*)"
     ],
     "defaultMode": "acceptEdits"
   }

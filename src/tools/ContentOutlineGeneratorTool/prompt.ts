@@ -1,4 +1,4 @@
-export const contentOutlineGeneratorPrompt = `
+export const contentOutlinePrompt = `
 # Content Outline Generator Tool
 
 Generates SEO-optimized content outlines based on keyword research and SERP analysis.

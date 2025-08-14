@@ -1,0 +1,177 @@
+{
+  "product": {
+    "name": "AI Call",
+    "domain": "https://www.1aicall.com",
+    "support_email": "support@shaling.ai",
+    "privacy_url": "https://www.1aicall.com/privacy",
+    "description": "Real-time translated phone calls in 100+ languages",
+    "core_features": [
+      {
+        "name": "Real-Time Voice Translation",
+        "description": "Speak and hear translations instantly in 100+ languages & accents"
+      },
+      {
+        "name": "Live Transcription",
+        "description": "Captions appear in real-time during calls"
+      },
+      {
+        "name": "AI Summary",
+        "description": "Key points extracted automatically after each call"
+      },
+      {
+        "name": "Full Transcript",
+        "description": "View, search, and export past conversations"
+      },
+      {
+        "name": "Speak or Type",
+        "description": "Type messages to be spoken aloud in target language"
+      },
+      {
+        "name": "Second Numbers",
+        "description": "Virtual numbers for privacy, no SIM required"
+      }
+    ],
+    "use_cases": [
+      "International travel communications",
+      "Business with overseas clients/partners",
+      "Multilingual family connections",
+      "Customer support in multiple languages",
+      "Language learning practice",
+      "Expat/immigrant local services"
+    ],
+    "target_keywords": [
+      "phone translation app",
+      "real-time translation calls",
+      "multilingual phone calls",
+      "voice translator app",
+      "international calling app",
+      "language translation phone",
+      "live call translator",
+      "AI phone translator"
+    ]
+  },
+  "seo_settings": {
+    "content_ratio": {
+      "serp_based": 70,
+      "unique_content": 30,
+      "product_content": 20
+    },
+    "optimization": {
+      "keyword_density_min": 1.0,
+      "keyword_density_max": 2.0,
+      "min_readability_score": 60,
+      "use_lsi_keywords": true,
+      "use_synonyms": true
+    },
+    "content_types": [
+      "blog",
+      "guide",
+      "how-to",
+      "comparison",
+      "review",
+      "listicle"
+    ],
+    "tones": [
+      "professional",
+      "friendly",
+      "authoritative",
+      "casual",
+      "technical"
+    ],
+    "word_count_ranges": {
+      "short": { "min": 500, "max": 1000 },
+      "medium": { "min": 1000, "max": 2000 },
+      "long": { "min": 2000, "max": 3500 },
+      "pillar": { "min": 3500, "max": 5000 }
+    }
+  },
+  "workflow": {
+    "phases": [
+      {
+        "name": "Information Collection",
+        "required_fields": [
+          "primary_keyword",
+          "brief_description",
+          "desired_word_count"
+        ],
+        "optional_fields": [
+          "secondary_keywords",
+          "content_type",
+          "tone"
+        ]
+      },
+      {
+        "name": "SERP Analysis",
+        "tools": ["serp_analyzer", "content_crawler"],
+        "analyze_top_n": 10,
+        "crawl_top_n": 5
+      },
+      {
+        "name": "Outline Generation",
+        "tool": "content_outline_generator",
+        "requires_approval": true
+      },
+      {
+        "name": "Product Integration",
+        "integrate_product_content": true,
+        "requires_approval": true
+      },
+      {
+        "name": "Content Writing",
+        "tool": "content_writer",
+        "write_by_section": true
+      },
+      {
+        "name": "Final Optimization",
+        "generate": [
+          "meta_title",
+          "meta_description",
+          "url_slug"
+        ]
+      }
+    ]
+  },
+  "content_templates": {
+    "introduction": {
+      "structure": [
+        "Hook with a question or statement",
+        "Define the main concept",
+        "Explain importance/relevance",
+        "Preview what will be covered",
+        "Mention AI Call if relevant"
+      ]
+    },
+    "product_section": {
+      "structure": [
+        "Natural transition to AI Call",
+        "Relevant features for the context",
+        "Real-world application",
+        "Benefits and value",
+        "Subtle call-to-action"
+      ]
+    },
+    "conclusion": {
+      "structure": [
+        "Summarize key points",
+        "Reinforce main message",
+        "Mention AI Call as solution",
+        "Clear next steps",
+        "Call-to-action"
+      ]
+    }
+  },
+  "meta_templates": {
+    "title_formats": [
+      "{keyword} - Complete Guide for {year}",
+      "Best {keyword}: Expert Tips & Strategies",
+      "How to {keyword} in {year} (Step-by-Step)",
+      "{keyword} vs Alternatives: Complete Comparison",
+      "Top 10 {keyword} Solutions for {year}"
+    ],
+    "description_formats": [
+      "Discover {keyword} with our comprehensive guide. Learn {benefit} with expert tips and real solutions. {cta}",
+      "Master {keyword} with proven strategies. Get {benefit} and {feature}. Start today with {product}.",
+      "Everything about {keyword} explained. {feature} with {product}. {benefit} guaranteed."
+    ]
+  }
+}

@@ -1238,6 +1238,7 @@ async function queryAnthropicNative(
 ): Promise<AssistantMessage> {
   const config = getGlobalConfig()
   const modelManager = getModelManager()
+  const currentRequest = getCurrentRequest()
 
   // 🔧 Fix: 使用传入的ModelProfile，而不是硬编码的'main'指针
   const modelProfile = options?.modelProfile || modelManager.getModel('main')

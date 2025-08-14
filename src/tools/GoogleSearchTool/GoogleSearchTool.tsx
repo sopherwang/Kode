@@ -2,10 +2,9 @@ import React from 'react'
 import { Box, Text } from 'ink'
 import { z } from 'zod'
 import { Tool } from '../../Tool'
-import { ToolUseContext } from '../../query'
-import { ToolCallEvent } from '../../types/ToolCallEvent'
-import chalk from 'chalk'
+import { ToolUseContext } from '../../Tool'
 import { fetch } from 'undici'
+import { googleSearchPrompt } from './prompt'
 
 const inputSchema = z.object({
   query: z.string().describe('The search query to execute'),
@@ -36,20 +35,93 @@ interface SerperResponse {
   }
 }
 
-export class GoogleSearchTool extends Tool {
-  name = 'google_search'
-  description = 'Search Google using the Serper.dev API to find relevant information from the web'
-  inputSchema = inputSchema
+const DESCRIPTION = 'Search Google using the Serper.dev API to find relevant information from the web'
 
-  needsPermissions(input: unknown): boolean {
+export const GoogleSearchTool: Tool<typeof inputSchema, SearchResult[]> = {
+  name: 'google_search',
+  
+  async description() {
+    return DESCRIPTION
+  },
+  
+  inputSchema,
+  
+  async prompt() {
+    return googleSearchPrompt
+  },
+  
+  async isEnabled() {
+    return true
+  },
+  
+  isReadOnly() {
+    return true
+  },
+  
+  isConcurrencySafe() {
+    return true
+  },
+  
+  needsPermissions(input?: GoogleSearchInput): boolean {
     // Web searches need permission in safe mode
     return true
-  }
+  },
+  
+  renderResultForAssistant(results: SearchResult[]): string {
+    if (!results || results.length === 0) {
+      return 'No search results found.'
+    }
 
+    let output = `Found ${results.length} search results:\n\n`
+    
+    for (const item of results) {
+      output += `${item.position}. **${item.title}**\n`
+      output += `   URL: ${item.link}\n`
+      if (item.snippet) {
+        output += `   ${item.snippet}\n`
+      }
+      output += '\n'
+    }
+
+    return output.trim()
+  },
+  
+  renderToolUseMessage(input: GoogleSearchInput, options: { verbose: boolean }): string {
+    return `Searching Google for: "${input.query}" (${input.search_country})`
+  },
+  
+  renderToolUseRejectedMessage(): React.ReactElement {
+    return <Text color="red">Google search was rejected by the user</Text>
+  },
+  
+  renderToolResultMessage(results: SearchResult[]): React.ReactElement {
+    if (!results || results.length === 0) {
+      return <Text>No search results found.</Text>
+    }
+
+    return (
+      <Box flexDirection="column">
+        <Text bold color="green">Found {results.length} search results:</Text>
+        <Text> </Text>
+        {results.map((item, index) => (
+          <Box key={index} flexDirection="column" marginBottom={1}>
+            <Text>
+              <Text color="yellow">{item.position}.</Text> <Text bold>{item.title}</Text>
+            </Text>
+            <Text color="cyan">   {item.link}</Text>
+            {item.snippet && (
+              <Text color="gray">   {item.snippet}</Text>
+            )}
+          </Box>
+        ))}
+      </Box>
+    )
+  },
+  
   async *call(
     input: GoogleSearchInput,
     context: ToolUseContext
-  ): AsyncGenerator<ToolCallEvent> {
+  ): AsyncGenerator<{ type: 'result'; data: SearchResult[]; resultForAssistant?: string }> {
     const { query, search_country, num_results } = input
 
     // Check for API key
@@ -59,11 +131,6 @@ export class GoogleSearchTool extends Tool {
         'SERPER_API_KEY environment variable is not set. ' +
         'You can get a free API key at https://serper.dev'
       )
-    }
-
-    yield {
-      type: 'progress',
-      message: `Searching Google for: "${query}" (${search_country})...`
     }
 
     try {
@@ -105,60 +172,11 @@ export class GoogleSearchTool extends Tool {
 
       yield {
         type: 'result',
-        result: results
+        data: results,
+        resultForAssistant: GoogleSearchTool.renderResultForAssistant(results)
       }
     } catch (error) {
-      if (context.abortSignal.aborted) {
-        throw new Error('Search cancelled')
-      }
       throw error
     }
-  }
-
-  renderResultForAssistant(input: unknown, result: unknown): string {
-    const results = result as SearchResult[]
-    
-    if (!results || results.length === 0) {
-      return 'No search results found.'
-    }
-
-    let output = `Found ${results.length} search results:\n\n`
-    
-    for (const item of results) {
-      output += `${item.position}. **${item.title}**\n`
-      output += `   URL: ${item.link}\n`
-      if (item.snippet) {
-        output += `   ${item.snippet}\n`
-      }
-      output += '\n'
-    }
-
-    return output.trim()
-  }
-
-  renderResultForUser(result: unknown): React.ReactElement {
-    const results = result as SearchResult[]
-    
-    if (!results || results.length === 0) {
-      return <Text>No search results found.</Text>
-    }
-
-    return (
-      <Box flexDirection="column">
-        <Text bold color="green">Found {results.length} search results:</Text>
-        <Text> </Text>
-        {results.map((item, index) => (
-          <Box key={index} flexDirection="column" marginBottom={1}>
-            <Text>
-              <Text color="yellow">{item.position}.</Text> <Text bold>{item.title}</Text>
-            </Text>
-            <Text color="cyan">   {item.link}</Text>
-            {item.snippet && (
-              <Text color="gray">   {item.snippet}</Text>
-            )}
-          </Box>
-        ))}
-      </Box>
-    )
   }
 }
