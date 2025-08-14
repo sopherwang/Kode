@@ -3,10 +3,14 @@ import { TaskTool } from './tools/TaskTool/TaskTool'
 import { ArchitectTool } from './tools/ArchitectTool/ArchitectTool'
 import { BashTool } from './tools/BashTool/BashTool'
 import { AskExpertModelTool } from './tools/AskExpertModelTool/AskExpertModelTool'
+import { ContentCrawlerTool } from './tools/ContentCrawlerTool/ContentCrawlerTool'
+import { ContentOutlineGeneratorTool } from './tools/ContentOutlineGeneratorTool/ContentOutlineGeneratorTool'
+import { ContentWriterTool } from './tools/ContentWriterTool/ContentWriterTool'
 import { FileEditTool } from './tools/FileEditTool/FileEditTool'
 import { FileReadTool } from './tools/FileReadTool/FileReadTool'
 import { FileWriteTool } from './tools/FileWriteTool/FileWriteTool'
 import { GlobTool } from './tools/GlobTool/GlobTool'
+import { GoogleSearchTool } from './tools/GoogleSearchTool/GoogleSearchTool'
 import { GrepTool } from './tools/GrepTool/GrepTool'
 import { LSTool } from './tools/lsTool/lsTool'
 import { MemoryReadTool } from './tools/MemoryReadTool/MemoryReadTool'
@@ -14,6 +18,7 @@ import { MemoryWriteTool } from './tools/MemoryWriteTool/MemoryWriteTool'
 import { MultiEditTool } from './tools/MultiEditTool/MultiEditTool'
 import { NotebookEditTool } from './tools/NotebookEditTool/NotebookEditTool'
 import { NotebookReadTool } from './tools/NotebookReadTool/NotebookReadTool'
+import { SerpAnalyzerTool } from './tools/SerpAnalyzerTool/SerpAnalyzerTool'
 import { ThinkTool } from './tools/ThinkTool/ThinkTool'
 import { TodoWriteTool } from './tools/TodoWriteTool/TodoWriteTool'
 import { getMCPTools } from './services/mcpClient'
@@ -27,9 +32,14 @@ export const getAllTools = (): Tool[] => {
     TaskTool,
     AskExpertModelTool,
     BashTool,
+    ContentCrawlerTool,
+    ContentOutlineGeneratorTool,
+    ContentWriterTool,
     GlobTool,
+    GoogleSearchTool,
     GrepTool,
     LSTool,
+    SerpAnalyzerTool,
     FileReadTool,
     FileEditTool,
     MultiEditTool,
