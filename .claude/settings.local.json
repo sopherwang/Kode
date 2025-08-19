@@ -1,5 +1,18 @@
 {
   "permissions": {
-    "defaultMode": "acceptEdits"
+    "allow": [
+      "Bash(docker build:*)",
+      "Bash(bun run:*)",
+      "Bash(bun test:*)",
+      "Bash(pkill:*)",
+      "Bash(true)",
+      "Bash(rm:*)",
+      "Bash(cp:*)",
+      "Bash(node:*)"
+    ],
+    "defaultMode": "acceptEdits",
+    "additionalDirectories": [
+      "/Users/bytedance"
+    ]
   }
 }
