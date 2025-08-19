@@ -1,4 +1,11 @@
 #!/usr/bin/env -S node --no-warnings=ExperimentalWarning --enable-source-maps
+
+
+
+
+
+
+
 import { initSentry } from '../services/sentry'
 import { PRODUCT_COMMAND, PRODUCT_NAME } from '../constants/product'
 initSentry() // Initialize Sentry as early as possible

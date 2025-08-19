@@ -1256,7 +1256,6 @@ async function queryAnthropicNative(
     modelProfileBaseURL: modelProfile?.baseURL,
     modelProfileApiKeyExists: !!modelProfile?.apiKey,
     optionsModel: options?.model,
-    requestId: currentRequest?.id,
   })
 
   if (modelProfile) {
@@ -1767,6 +1766,10 @@ async function queryOpenAI(
 
       // 🔧 Fix: 如果有ModelProfile配置，直接使用它 (更宽松的条件)
       if (modelProfile && modelProfile.modelName) {
+        // Remove invalid OpenAI parameters
+        if (modelProfile.provider === 'openai') {
+          delete opts.reasoning_effort
+        }
         debugLogger.api('USING_MODEL_PROFILE_PATH', {
           modelProfileName: modelProfile.modelName,
           modelName: modelProfile.modelName,
