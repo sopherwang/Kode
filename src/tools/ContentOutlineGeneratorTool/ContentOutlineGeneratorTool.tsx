@@ -119,7 +119,7 @@ function generateSections(keyword: string, targetWordCount: number, secondaryKey
       title: sectionTopics[i],
       description: `Detailed coverage of ${sectionTopics[i].toLowerCase()}`,
       targetWordCount: wordsPerSection,
-      keywords: [keyword, ...(secondaryKeywords[i] ? [secondaryKeywords[i]] : [])]
+      keywords: [keyword, ...(secondaryKeywords && i < secondaryKeywords.length && secondaryKeywords[i] ? [secondaryKeywords[i]] : [])]
     })
   }
   
@@ -169,7 +169,7 @@ export const ContentOutlineGeneratorTool: Tool<typeof inputSchema, ContentOutlin
     output += `**Meta Title:** ${outline.metaTitle}\n`
     output += `**Meta Description:** ${outline.metaDescription}\n\n`
     output += `**Primary Keyword:** ${outline.primaryKeyword}\n`
-    output += `**Secondary Keywords:** ${outline.secondaryKeywords.join(', ')}\n`
+    output += `**Secondary Keywords:** ${(outline.secondaryKeywords || []).join(', ')}\n`
     output += `**Target Word Count:** ${outline.targetWordCount}\n`
     output += `**Estimated Read Time:** ${outline.estimatedReadTime} minutes\n`
     output += `**Content Type:** ${outline.contentType}\n`
@@ -180,7 +180,7 @@ export const ContentOutlineGeneratorTool: Tool<typeof inputSchema, ContentOutlin
       const indent = section.level === 'h3' ? '  ' : ''
       output += `${indent}### ${section.title} (${section.targetWordCount} words)\n`
       output += `${indent}${section.description}\n`
-      output += `${indent}Keywords: ${section.keywords.join(', ')}\n\n`
+      output += `${indent}Keywords: ${(section.keywords || []).join(', ')}\n\n`
     }
     
     return output
@@ -233,7 +233,7 @@ export const ContentOutlineGeneratorTool: Tool<typeof inputSchema, ContentOutlin
       metaTitle,
       metaDescription,
       primaryKeyword: primary_keyword,
-      secondaryKeywords: secondary_keywords,
+      secondaryKeywords: secondary_keywords || [],
       targetWordCount: target_word_count,
       estimatedReadTime: calculateReadTime(target_word_count),
       sections,

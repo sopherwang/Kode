@@ -43,7 +43,7 @@ function generateContent(
   tone: string,
   includeExamples: boolean
 ): string {
-  const allKeywords = [primaryKeyword, ...secondaryKeywords]
+  const allKeywords = [primaryKeyword, ...(secondaryKeywords || [])]
   let content = ''
   
   // Generate introduction paragraph
@@ -77,7 +77,7 @@ function generateContent(
     }
     
     // Add secondary keywords naturally
-    if (i < secondaryKeywords.length) {
+    if (secondaryKeywords && i < secondaryKeywords.length && secondaryKeywords[i]) {
       content += ` This is especially true when considering ${secondaryKeywords[i]}.`
     }
   }
